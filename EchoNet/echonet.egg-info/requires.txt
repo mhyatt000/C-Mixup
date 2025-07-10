@@ -1,9 +1,0 @@
-click
-numpy
-pandas
-torch
-torchvision
-opencv-python
-scikit-image
-tqdm
-sklearn
