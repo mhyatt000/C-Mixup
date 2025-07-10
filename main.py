@@ -13,10 +13,6 @@ import torch
 import tyro
 from utils import get_unique_file_name, set_seed, write_model, write_result
 
-# default device in case module is imported without running main
-device = torch.device("cpu")
-
-############ cmd process ##############
 
 @dataclass
 class Config:
@@ -45,9 +41,6 @@ class Config:
     # data path, for RCF_MNIST and TimeSeries
     data_dir: Optional[str] = None
     ts_name: str = ""
-
-
-########## cmd end ############
 
 
 def load_model(cfg, ts_data):
