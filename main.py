@@ -5,19 +5,18 @@ import pickle
 import time
 from typing import Optional
 
-import algorithm
-from config import dataset_defaults
-from data_generate import load_data
-from models import Learner, Learner_Dti_dg, Learner_RCF_MNIST, Learner_TimeSeries
 import torch
 import tyro
-from utils import get_unique_file_name, set_seed, write_model, write_result
+
+from cmix import algorithm
+from cmix.config import dataset_defaults
+from cmix.data_generate import load_data
+from cmix.models import Learner, Learner_Dti_dg, Learner_RCF_MNIST, Learner_TimeSeries
+from cmix.utils import get_unique_file_name, set_seed, write_model, write_result
 
 
 @dataclass
 class Config:
-    """Command-line arguments."""
-
     result_root_path: str = "../../result/"
     dataset: str = "NO2"
     mixtype: str = "random"  # random or kde or erm
@@ -109,7 +108,7 @@ def main(cfg: Config) -> None:
         all_begin = time.time()
 
         if cfg.mixtype == "kde":
-            mixup_idx_sample_rate = algorithm.get_mixup_sample_rate(cfg, data_packet, device)
+            mixup_idx_sample_rate = algorithm.get_mixup_sample_rate(cfg, data_packet)
         else:
             mixup_idx_sample_rate = None
 

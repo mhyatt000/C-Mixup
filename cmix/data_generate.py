@@ -1,10 +1,10 @@
-import data.airfoil as airfoil
-import data.communities_and_crime as cc
-import data.dti_dg as dd
-import data.no2 as no2
-import data.RCF_MNIST as rfm
-import data.skillcraft as sc
-import data.time_series as ts
+import cmix.data.airfoil as airfoil
+import cmix.data.communities_and_crime as cc
+import cmix.data.dti_dg as dd
+import cmix.data.no2 as no2
+import cmix.data.RCF_MNIST as rfm
+import cmix.data.skillcraft as sc
+import cmix.data.time_series as ts
 
 
 def load_data(args, device="cuda"):
