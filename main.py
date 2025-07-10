@@ -1,5 +1,5 @@
 # ContinuousMIXUP
-from dataclasses import asdict, dataclass
+from dataclasses import dataclass, field
 import os
 import pickle
 import time
@@ -9,10 +9,23 @@ import torch
 import tyro
 
 from cmix import algorithm
-from cmix.config import dataset_defaults
 from cmix.data_generate import load_data
 from cmix.models import Learner, Learner_Dti_dg, Learner_RCF_MNIST, Learner_TimeSeries
 from cmix.utils import get_unique_file_name, set_seed, write_model, write_result
+
+
+@dataclass
+class KDEConfig:
+    use: bool = True
+    bandwidth: float = 1.0
+    model: str = "gaussian"  # gaussian or epanechnikov or linear
+
+
+@dataclass
+class MixUp:
+    kde: KDEConfig = field(default_factory=KDEConfig)
+    use_manifold: bool = True
+    mode: str = "random"
 
 
 @dataclass
@@ -58,18 +71,7 @@ def load_model(cfg, ts_data):
     return model
 
 
-def main(cfg: Config) -> None:
-    cfg.cuda = torch.cuda.is_available()
-    cfg_dict = asdict(cfg)
-    dict_name = cfg.dataset
-    if cfg.dataset == "TimeSeries":
-        dict_name += "-" + cfg.ts_name
-    cfg_dict.update(dataset_defaults[dict_name])
-
-    for k, v in cfg_dict.items():
-        setattr(cfg, k, v)
-
-    global device
+def set_device(cfg: Config) -> None:
     if torch.cuda.is_available() and cfg.gpu != -1:
         torch.cuda.set_device("cuda:" + str(cfg.gpu))
         device = torch.device("cuda:" + str(cfg.gpu))
@@ -79,7 +81,22 @@ def main(cfg: Config) -> None:
         device = torch.device("cpu")
         if cfg.show_setting:
             print("use cpu")
+    return device
 
+
+def main(cfg: Config) -> None:
+    """
+    cfg.cuda = torch.cuda.is_available()
+    cfg_dict = asdict(cfg)
+    dict_name = cfg.dataset
+    if cfg.dataset == "TimeSeries":
+        dict_name += "-" + cfg.ts_name
+    cfg_dict.update(dataset_defaults[dict_name])
+    for k, v in cfg_dict.items():
+        setattr(cfg, k, v)
+    """
+
+    device = set_device(cfg)
     set_seed(cfg.seed)
 
     # prepare result directories
