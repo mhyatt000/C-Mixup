@@ -1,10 +1,11 @@
 from copy import deepcopy
 
-import data.Dti_dg_lib.networks as networks
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torchvision import models
+
+import cmix.data.Dti_dg_lib.networks as networks
 
 
 class Learner(nn.Module):
