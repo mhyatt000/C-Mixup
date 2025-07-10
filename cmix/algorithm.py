@@ -3,8 +3,6 @@ import time
 
 import numpy as np
 from sklearn.neighbors import KernelDensity
-
-# import ipdb
 import torch
 import torch.nn as nn
 from torch.optim import Adam
