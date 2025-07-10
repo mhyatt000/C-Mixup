@@ -1,10 +1,10 @@
-# airfoil 
+# airfoil
 python main.py --dataset Airfoil --mixtype kde --kde_bandwidth 1.75 --use_manifold 1 --store_model 1 --read_best_model 0
 
-# no2 
+# no2
 python main.py --dataset NO2 --mixtype kde --kde_bandwidth 1.2 --use_manifold 0 --store_model 1 --read_best_model 0
 
-# exchange_rate 
+# exchange_rate
 python main.py --dataset TimeSeries --data_dir ./data/exchange_rate/exchange_rate.txt --ts_name exchange_rate --mixtype kde --kde_bandwidth 5e-2 --use_manifold 1 --store_model 1 --read_best_model 0
 
 # electricity
