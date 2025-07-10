@@ -5,7 +5,6 @@ import numpy as np
 import torch
 
 
-########## seed init ##########
 def set_seed(seed):
     torch.manual_seed(seed)
     np.random.seed(seed)
@@ -15,8 +14,8 @@ def set_seed(seed):
     torch.backends.cudnn.benchmark = False
 
 
-######### get status information ###########
 def stats_values(targets):
+    ######### get status information ###########
     mean = np.mean(targets)
     min = np.min(targets)
     max = np.max(targets)
@@ -25,8 +24,8 @@ def stats_values(targets):
     return mean, min, max, std
 
 
-######### get file name ###########
 def get_unique_file_name(args, extra_str2="", profix=".txt"):
+    ######### get file name ###########
     if args.dataset == "TimeSeries":
         extra_str = "_" + args.ts_name
     elif args.is_ood:
@@ -64,10 +63,8 @@ def get_unique_file_name(args, extra_str2="", profix=".txt"):
     return fn
 
 
-#### write result and model #####
-
-
 def write_result(args, bw, data, result_path, extra_str=""):
+    #### write result and model #####
     full_path = result_path + get_unique_file_name(args, extra_str, ".txt")
     if args.show_process:
         print(f"write result into path: {full_path}")

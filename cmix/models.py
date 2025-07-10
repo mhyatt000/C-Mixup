@@ -4,6 +4,7 @@ import data.Dti_dg_lib.networks as networks
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from torchvision import models
 
 
 class Learner(nn.Module):
@@ -38,9 +39,6 @@ class Learner(nn.Module):
             x = self.block_1(x)
             repr = self.block_2(x)
             return repr
-
-
-from torchvision import models
 
 
 class Learner_RCF_MNIST(nn.Module):
